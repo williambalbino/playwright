@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { deleteContactById, getAllContacts } from './support/helper'
+import { ContactsPage } from './support/pages/contacts'
+import { Contact } from './fixtures/contact'
 
 test.afterAll(async ({ request }) => {
     const userId = await getAllContacts(request)
@@ -12,22 +14,16 @@ test.afterAll(async ({ request }) => {
 
 test('deve adicionar um novo contato', async ({ page }) => {
 
-    const contactUser = {
+    const contactData: Contact = {
         firstName: 'John',
         lastName: 'das Neves'
     };
 
-    await page.goto('https://thinking-tester-contact-list.herokuapp.com/contactList')
-
-    await page.click('#add-contact')
-
-    const firstName = page.getByPlaceholder('First Name')
-    await firstName.fill(contactUser.firstName)
-
-    const lastName = page.getByPlaceholder('Last Name')
-    await lastName.fill(contactUser.lastName)
-
-    await page.click('#submit')
-    await expect(page.locator(`css=.contactTableBodyRow >> text=${contactUser.firstName} ${contactUser.lastName}`)).toBeVisible()
+    const contactsPage: ContactsPage = new ContactsPage(page)
+    
+    await contactsPage.go()
+    await contactsPage.addContact(contactData)
+    await contactsPage.shouldHaveText(contactData)
+    
 
 })
