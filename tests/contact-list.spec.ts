@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 import { deleteContactById, getAllContacts } from './support/helper'
 import { ContactsPage } from './support/pages/contacts'
 import { Contact } from './fixtures/contact'
+import data from './fixtures/contacts.json'
 
 test.afterAll(async ({ request }) => {
     const userId = await getAllContacts(request)
@@ -14,16 +15,11 @@ test.afterAll(async ({ request }) => {
 
 test('deve adicionar um novo contato', async ({ page }) => {
 
-    const contactData: Contact = {
-        firstName: 'John',
-        lastName: 'das Neves'
-    };
-
     const contactsPage: ContactsPage = new ContactsPage(page)
     
     await contactsPage.go()
-    await contactsPage.addContact(contactData)
-    await contactsPage.shouldHaveText(contactData)
+    await contactsPage.addContact(data.success)
+    await contactsPage.shouldHaveText(data.success)
     
 
 })
