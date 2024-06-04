@@ -2,5 +2,9 @@
     "success":{
         "firstName": "John",
         "lastName": "das Neves"
+    },
+    "required":{
+        "firstName": "",
+        "lastName": "" 
     }
 }

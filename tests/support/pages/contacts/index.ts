@@ -24,9 +24,12 @@ export class ContactsPage {
         await this.page.click('#submit')
     }
 
-    async shouldHaveText(contact: Contact) {
-        const target = this.page.locator(`css=.contactTableBodyRow >> text=${contact.firstName} ${contact.lastName}`)
-        await expect(target).toBeVisible()
+    getNewContact(contact: Contact) {
+        return this.page.locator(`css=.contactTableBodyRow >> text=${contact.firstName} ${contact.lastName}`)
+    }
+
+    getErrorMessage() {
+        return this.page.locator('css=#error')
     }
 
 }
