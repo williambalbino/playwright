@@ -1,12 +1,13 @@
 import { test as setup } from '@playwright/test'
+import * as login from './fixtures/login.json'
 
 const authFile = 'playwright/.auth/user.json'
 
 setup('authenticate', async ({ request }) => {
-    await request.post('https://thinking-tester-contact-list.herokuapp.com/users/login', {
+    await request.post('/users/login', {
         data: {
-            "email": "email@teste.com",
-            "password": "12341234"
+            "email": login.success.email,
+            "password": login.success.password
         }
     })
 

@@ -9,7 +9,7 @@ export class ContactsPage {
     }
 
     async go() {
-        await this.page.goto('https://thinking-tester-contact-list.herokuapp.com/contactList')
+        await this.page.goto('/contactList')
     }
 
     async addContact(contact: Contact) {

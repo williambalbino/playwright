@@ -26,7 +26,7 @@ test('deve validar nome e sobrenome obrigatorio', async ({ page }) => {
     const contactsPage: ContactsPage = new ContactsPage(page)
 
     await contactsPage.go()
-    await contactsPage.addContact(userData.required)
+    await contactsPage.addContact(userData.fullNameRequired)
 
     await expect(contactsPage.getErrorMessage()).toContainText(errorMessage.fullName)
 })

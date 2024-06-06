@@ -1,0 +1,18 @@
+{
+    "success": {
+        "email": "email@teste.com",
+        "password": "12341234"
+    },
+    "emptyEmail": {
+        "email": "",
+        "password": "12341234"
+    },
+    "emptyPassword": {
+        "email": "email@teste.com",
+        "password": ""
+    },
+    "allEmpty": {
+        "email": "email@teste.com",
+        "password": "12341234"
+    }
+}
