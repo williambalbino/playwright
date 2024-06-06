@@ -3,8 +3,16 @@
         "firstName": "John",
         "lastName": "das Neves"
     },
-    "required":{
+    "fullNameRequired":{
         "firstName": "",
+        "lastName": "" 
+    },
+    "firstNameRequired":{
+        "firstName": "",
+        "lastName": "da Neves" 
+    },
+    "lastNameRequired":{
+        "firstName": "John",
         "lastName": "" 
     }
 }
