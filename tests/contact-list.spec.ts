@@ -4,6 +4,12 @@ import { ContactsPage } from './support/pages/contacts'
 import userData from './fixtures/contacts.json'
 import errorMessage from './fixtures/error-messages.json'
 
+let contactsPage: ContactsPage
+
+test.beforeEach(({ page }) => {
+    contactsPage = new ContactsPage(page)
+})
+
 test.afterAll(async ({ request }) => {
     const userId = await getAllContacts(request)
 
@@ -13,8 +19,7 @@ test.afterAll(async ({ request }) => {
     }
 })
 
-test('deve adicionar um novo contato', async ({ page }) => {
-    const contactsPage: ContactsPage = new ContactsPage(page)
+test('deve adicionar um novo contato', async () => {
 
     await contactsPage.go()
     await contactsPage.addContact(userData.success)
@@ -22,11 +27,10 @@ test('deve adicionar um novo contato', async ({ page }) => {
     await expect(contactsPage.getNewContact(userData.success)).toBeVisible()
 })
 
-test('deve validar nome e sobrenome obrigatorio', async ({ page }) => {
-    const contactsPage: ContactsPage = new ContactsPage(page)
+test('deve validar nome e sobrenome obrigatorio', async () => {
 
     await contactsPage.go()
     await contactsPage.addContact(userData.fullNameRequired)
 
-    await expect(contactsPage.getErrorMessage()).toContainText(errorMessage.fullName)
+    await expect(contactsPage.getErrorMessage()).toHaveText(errorMessage.fullName)
 })
