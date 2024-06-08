@@ -3,6 +3,10 @@
         "email": "email@teste.com",
         "password": "12341234"
     },
+    "editLogin": {
+        "email": "user@teste.com",
+        "password": "12341234"
+    },
     "emptyEmail": {
         "email": "",
         "password": "12341234"

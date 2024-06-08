@@ -1,4 +1,4 @@
-import { Page, expect } from "@playwright/test"
+import { Page } from "@playwright/test"
 import { Contact } from "../../../fixtures/contact"
 
 export class ContactsPage {
@@ -15,11 +15,8 @@ export class ContactsPage {
     async addContact(contact: Contact) {
         await this.page.click('#add-contact')
 
-        const firstName = this.page.getByPlaceholder('First Name')
-        await firstName.fill(contact.firstName)
-
-        const lastName = this.page.getByPlaceholder('Last Name')
-        await lastName.fill(contact.lastName)
+        await this.fillFirstName(contact.firstName)
+        await this.fillLastName(contact.lastName)
 
         await this.page.click('#submit')
     }
@@ -32,6 +29,25 @@ export class ContactsPage {
         return this.page.locator('css=#error')
     }
 
+    async fillFirstName(firstName: string) {
+        await this.page.locator('#firstName').fill(firstName)
+    }
+
+    async fillLastName(lastName: string) {
+        await this.page.locator('#lastName').fill(lastName)
+    }
+
+    async editContact(firstName: string, lastName: string) {
+        await this.page.click('#edit-contact')
+
+        await this.page.waitForTimeout(2000)
+        
+        await this.fillFirstName(firstName)
+        await this.fillLastName(lastName)
+        
+        await this.page.click('#submit')
+        await this.page.click('#return')
+    }
 }
 
 

@@ -14,5 +14,13 @@
     "lastNameRequired":{
         "firstName": "John",
         "lastName": "" 
+    },
+    "update":{
+        "firstName": "Joao",
+        "lastName": "Snow"
+    },
+    "updateDone":{
+        "firstName": "Joao Editado",
+        "lastName": "Snow Editado"
     }
 }

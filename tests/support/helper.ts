@@ -1,8 +1,11 @@
-import { APIRequestContext } from '@playwright/test'
+import { APIRequestContext, APIResponse } from '@playwright/test'
 import * as user from '../../playwright/.auth/user.json'
 import { Contact } from '../fixtures/contact'
+import userData from '../fixtures/contacts.json'
 
-export async function getAllContacts(request: APIRequestContext) {
+const authFile = 'playwright/.auth/user.json'
+
+export async function getAllContactIds(request: APIRequestContext) {
     const response = await request.get('/contacts', {
         headers: {
             'Authorization': `Bearer ${user.cookies.at(0)?.value}`,
@@ -10,15 +13,48 @@ export async function getAllContacts(request: APIRequestContext) {
     })
 
     const contactList: Contact[] = await response.json()
-    return contactList.at(-1)?._id;
+    const ids = contactList.map(contact => {
+        return contact._id!;
+    })
+
+    return ids
 }
 
-export async function deleteContactById(request: APIRequestContext, userId: String) {
-    const deleteResponse = await request.delete(`/contacts/${userId}`, {
+export async function deleteContacts(request: APIRequestContext, userIds: string[]) {
+    const promises: Promise<APIResponse>[] = [];
+
+    userIds.forEach(userId => {
+        promises.push(
+            request.delete(`/contacts/${userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${user.cookies.at(0)?.value}`,
+                }
+            })
+        )
+    })
+    await Promise.all(promises)
+}
+
+export async function postContact(request: APIRequestContext) {
+    const response = await request.post('/contacts', {
         headers: {
             'Authorization': `Bearer ${user.cookies.at(0)?.value}`,
+        },
+        data: {
+            firstName: `${userData.update.firstName}`,
+            lastName: `${userData.update.lastName}`,
         }
     })
 
-    return deleteResponse.status()
+    return response.status()
+}
+
+export async function login(request: APIRequestContext, email: string, password: string) {
+    await request.post('/users/login', {
+        data: {
+            "email": email,
+            "password": password
+        }
+    })
+    await request.storageState({ path: authFile })
 }
