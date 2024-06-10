@@ -45,3 +45,7 @@ test.describe(() => {
         await clearContactsDB(request, userDataEdit)
     })
 })
+
+test('deve remover um contato', async () => {
+    
+})
