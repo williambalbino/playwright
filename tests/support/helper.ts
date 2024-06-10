@@ -1,14 +1,12 @@
 import { APIRequestContext, APIResponse } from '@playwright/test'
-import * as user from '../../playwright/.auth/user.json'
 import { Contact } from '../fixtures/contact'
-import userData from '../fixtures/contacts.json'
+import contactData from '../fixtures/contacts.json'
+import { LoginResponse } from '../fixtures/login-response'
 
-const authFile = 'playwright/.auth/user.json'
-
-export async function getAllContactIds(request: APIRequestContext) {
+export async function getAllContactIds(request: APIRequestContext, userData: LoginResponse) {
     const response = await request.get('/contacts', {
         headers: {
-            'Authorization': `Bearer ${user.cookies.at(0)?.value}`,
+            'Authorization': `Bearer ${userData.cookies.at(0)?.value}`,
         }
     })
 
@@ -20,14 +18,14 @@ export async function getAllContactIds(request: APIRequestContext) {
     return ids
 }
 
-export async function deleteContacts(request: APIRequestContext, userIds: string[]) {
+export async function deleteContacts(request: APIRequestContext, contactIds: string[], userData: LoginResponse) {
     const promises: Promise<APIResponse>[] = [];
 
-    userIds.forEach(userId => {
+    contactIds.forEach(userId => {
         promises.push(
             request.delete(`/contacts/${userId}`, {
                 headers: {
-                    'Authorization': `Bearer ${user.cookies.at(0)?.value}`,
+                    'Authorization': `Bearer ${userData.cookies.at(0)?.value}`,
                 }
             })
         )
@@ -35,21 +33,20 @@ export async function deleteContacts(request: APIRequestContext, userIds: string
     await Promise.all(promises)
 }
 
-export async function postContact(request: APIRequestContext) {
+export async function postContact(request: APIRequestContext, userData: LoginResponse) {
+    
     const response = await request.post('/contacts', {
         headers: {
-            'Authorization': `Bearer ${user.cookies.at(0)?.value}`,
+            'Authorization': `Bearer ${userData.cookies.at(0)?.value}`,
         },
         data: {
-            firstName: `${userData.update.firstName}`,
-            lastName: `${userData.update.lastName}`,
+            firstName: `${contactData.update.firstName}`,
+            lastName: `${contactData.update.lastName}`,
         }
     })
-
-    return response.status()
 }
 
-export async function login(request: APIRequestContext, email: string, password: string) {
+export async function login(request: APIRequestContext, email: string, password: string, authFile: string) {
     await request.post('/users/login', {
         data: {
             "email": email,
@@ -57,4 +54,12 @@ export async function login(request: APIRequestContext, email: string, password:
         }
     })
     await request.storageState({ path: authFile })
+}
+
+export async function clearContactsDB(request: APIRequestContext, userData: LoginResponse) {
+    const userIds = await getAllContactIds(request, userData)
+
+    if (userIds.length) {
+        await deleteContacts(request, userIds, userData)
+    }
 }
