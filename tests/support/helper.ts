@@ -33,15 +33,15 @@ export async function deleteContacts(request: APIRequestContext, contactIds: str
     await Promise.all(promises)
 }
 
-export async function postContact(request: APIRequestContext, userData: LoginResponse) {
+export async function postContact(request: APIRequestContext, contactData: Contact, userData: LoginResponse) {
     
     const response = await request.post('/contacts', {
         headers: {
             'Authorization': `Bearer ${userData.cookies.at(0)?.value}`,
         },
         data: {
-            firstName: `${contactData.update.firstName}`,
-            lastName: `${contactData.update.lastName}`,
+            firstName: `${contactData.firstName}`,
+            lastName: `${contactData.lastName}`,
         }
     })
 }

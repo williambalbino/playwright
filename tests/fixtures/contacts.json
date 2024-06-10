@@ -22,5 +22,9 @@
     "updateDone":{
         "firstName": "Joao Editado",
         "lastName": "Snow Editado"
+    },
+    "deleteTest":{
+        "firstName": "Joao Delete",
+        "lastName": "Snow Delete"
     }
 }

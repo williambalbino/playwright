@@ -34,7 +34,7 @@ test.describe(() => {
     test.use({ storageState: 'playwright/.auth/secondUser.json' });
 
     test('deve editar um contato', async ({ request }) => {
-        await postContact(request, userDataEdit)
+        await postContact(request, contactData.update, userDataEdit)
 
         await contactsPage.go()
         await contactsPage.getNewContact(contactData.update).click()
@@ -46,6 +46,15 @@ test.describe(() => {
     })
 })
 
-test('deve remover um contato', async () => {
-    
+test('deve remover um contato', async ({ page, request }) => {
+    await postContact(request, contactData.deleteTest, userData)
+
+    await contactsPage.go()
+    await contactsPage.getNewContact(contactData.deleteTest).click()
+    await contactsPage.removeContact(contactData.deleteTest)
+    await contactsPage.acceptDeleteDialog()
+
+    await page.click('#delete')
+
+    await expect(contactsPage.getNewContact(contactData.deleteTest)).not.toBeVisible()
 })

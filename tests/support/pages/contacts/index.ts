@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test"
+import { Page, expect } from "@playwright/test"
 import { Contact } from "../../../fixtures/contact"
 
 export class ContactsPage {
@@ -41,12 +41,25 @@ export class ContactsPage {
         await this.page.click('#edit-contact')
 
         await this.page.waitForTimeout(2000)
-        
+
         await this.fillFirstName(firstName)
         await this.fillLastName(lastName)
-        
+
         await this.page.click('#submit')
         await this.page.click('#return')
+    }
+
+    async removeContact(contact: Contact) {
+        await this.getNewContact(contact)
+        await this.page.click('#delete')
+    }
+
+    async acceptDeleteDialog() {
+        this.page.on('dialog', async dialog => {
+            expect(dialog.type()).toContain('confirm')
+            expect(dialog.message()).toContain('Are you sure you want to delete this contact?')
+            await dialog.accept()
+        })
     }
 }
 
