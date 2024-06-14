@@ -1,5 +1,5 @@
 import { Page, expect } from "@playwright/test"
-import { Contact } from "../../../fixtures/contact"
+import { Contact } from "../../../fixtures/contacts/contact"
 
 export class ContactsPage {
     readonly page: Page
@@ -26,7 +26,7 @@ export class ContactsPage {
     }
 
     getErrorMessage() {
-        return this.page.locator('css=#error')
+        return this.page.locator('#error')
     }
 
     async fillFirstName(firstName: string) {

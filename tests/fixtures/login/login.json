@@ -18,5 +18,9 @@
     "allEmpty": {
         "email": "email@teste.com",
         "password": "12341234"
+    },
+    "invalidLogin": {
+        "email": "email@email.com",
+        "password": "12345"
     }
 }

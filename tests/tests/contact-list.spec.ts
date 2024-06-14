@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test'
-import { postContact, clearContactsDB } from './support/helper'
-import { ContactsPage } from './support/pages/contacts'
-import contactData from './fixtures/contacts.json'
-import errorMessage from './fixtures/error-messages.json'
-import userDataEdit from '../playwright/.auth/secondUser.json'
-import userData from '../playwright/.auth/user.json'
+import { postContact, clearContactsDB } from '../support/helper'
+import { ContactsPage } from '../support/pages/contacts'
+import contactData from '../fixtures/contacts/contacts.json'
+import errorMessage from '../fixtures/error-messages.json'
+import userDataEdit from '../../playwright/.auth/secondUser.json'
+import userData from '../../playwright/.auth/user.json'
 
 let contactsPage: ContactsPage
 
