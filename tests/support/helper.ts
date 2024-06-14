@@ -1,4 +1,4 @@
-import { APIRequestContext, APIResponse } from '@playwright/test'
+import { APIRequestContext, APIResponse, expect } from '@playwright/test'
 import { Contact } from '../fixtures/contacts/contact'
 import { LoginResponse } from '../fixtures/login/login-response'
 
@@ -43,6 +43,7 @@ export async function postContact(request: APIRequestContext, contactData: Conta
             lastName: `${contactData.lastName}`,
         }
     })
+    expect(response.ok).toBeTruthy()
 }
 
 export async function login(request: APIRequestContext, email: string, password: string, authFile: string) {
