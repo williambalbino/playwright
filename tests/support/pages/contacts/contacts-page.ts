@@ -25,24 +25,19 @@ export class ContactsPage {
         this.lastNameField = page.locator('#lastName')
         this.lastNameField = page.locator('#lastName')
         this.errorMessage = page.locator('#error')
-
     }
 
     async go() {
         await this.page.goto('/contactList')
     }
 
-    async click(locator: Locator){
-        await locator.click()
-    }
-
     async addContact(contact: Contact) {
-        await this.click(this.addContactButton)
+        await this.addContactButton.click()
 
         await this.fillFirstName(contact.firstName)
         await this.fillLastName(contact.lastName)
 
-        await this.page.click('#submit')
+        await this.submitButton.click()
     }
 
     getNewContact(contact: Contact) {
@@ -50,32 +45,32 @@ export class ContactsPage {
     }
 
     getErrorMessage() {
-        return this.page.locator('#error')
+        return this.errorMessage
     }
 
     async fillFirstName(firstName: string) {
-        await this.page.locator('#firstName').fill(firstName)
+        await this.firstNameField.fill(firstName)
     }
 
     async fillLastName(lastName: string) {
-        await this.page.locator('#lastName').fill(lastName)
+        await this.lastNameField.fill(lastName)
     }
 
     async editContact(firstName: string, lastName: string) {
-        await this.page.click('#edit-contact')
+        await this.editContactButton.click()
 
         await this.page.waitForTimeout(2000)
 
         await this.fillFirstName(firstName)
         await this.fillLastName(lastName)
 
-        await this.page.click('#submit')
-        await this.page.click('#return')
+        await this.submitButton.click()
+        await this.returnButton.click()
     }
 
     async removeContact(contact: Contact) {
         this.getNewContact(contact)
-        await this.page.click('#delete')
+        await this.deleteContactButton.click()
     }
 
     async acceptDeleteDialog() {
