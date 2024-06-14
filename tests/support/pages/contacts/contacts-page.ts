@@ -1,8 +1,8 @@
 import { Page, expect, Locator } from "@playwright/test"
 import { Contact } from "../../../fixtures/contacts/contact"
 
-let contact: Contact
 export class ContactsPage {
+
     readonly page: Page
     readonly submitButton: Locator
     readonly addContactButton: Locator
@@ -23,7 +23,6 @@ export class ContactsPage {
         this.returnButton = page.locator('#return')
         this.firstNameField = page.locator('#firstName')
         this.lastNameField = page.locator('#lastName')
-        this.newContact = page.locator(`css=.contactTableBodyRow >> text=${contact.firstName} ${contact.lastName}`)
         this.lastNameField = page.locator('#lastName')
         this.errorMessage = page.locator('#error')
 
