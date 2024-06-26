@@ -44,9 +44,9 @@ test.describe(() => {
 })
 
 test('deve remover um contato', async ({ page, request }) => {
-    //await postContact(request, contactData.deleteTest, userData)
+    // await postContact(request, contactData.deleteTest, userData)
 
-     await contactsPage.addContact(contactData.deleteTest)
+    await contactsPage.addContact(contactData.deleteTest)
     await contactsPage.getNewContact(contactData.deleteTest).click()
     await contactsPage.removeContact(contactData.deleteTest)
     await contactsPage.acceptDeleteDialog()
