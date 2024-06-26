@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test"
-import { Login } from "../../../fixtures/login/login"
+import { Login } from '../../dto/login'
 
 export class LoginPage {
     readonly page: Page

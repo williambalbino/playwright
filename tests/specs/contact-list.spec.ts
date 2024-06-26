@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
-import { postContact, clearContactsDB } from '../support/helper'
-import { ContactsPage } from '../support/pages/contacts/contacts-page'
-import contactData from '../fixtures/contacts/contacts.json'
-import errorMessage from '../fixtures/error-messages.json'
+import { postContact, clearContactsDB } from '../../utils/helper'
+import { ContactsPage } from '../pages/contacts-page'
+import contactData from '../data/contacts.json'
+import errorMessage from '../data/error-messages.json'
 import userDataEdit from '../../playwright/.auth/secondUser.json'
 import userData from '../../playwright/.auth/user.json'
 

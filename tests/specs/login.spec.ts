@@ -1,13 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../support/pages/login/login-page';
-import loginData from '../fixtures/login/login.json';
-import hooks from '../support/hooks';
-import pages from '../support/pages';
+import { LoginPage } from '../pages/login-page';
+import loginData from '../data/login.json';
 
 let loginPage: LoginPage
 
 test.beforeEach(async ({ page }) => {
-    loginPage = await hooks.beforeEach(page, LoginPage, pages.loginPage)
+    loginPage = new LoginPage(page)
+    await loginPage.go()
 })
 
 test('deve fazer login', async ({ page }) => {

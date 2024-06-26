@@ -1,6 +1,6 @@
 import { test as setup } from '@playwright/test'
-import { login } from '../support/helper.ts'
-import * as loginUser from '../fixtures/login/login.json'
+import { login } from '../../utils/helper'
+import * as loginUser from '../data/login.json'
 
 const authFile = 'playwright/.auth/user.json'
 const authFileSecondUser = 'playwright/.auth/secondUser.json'

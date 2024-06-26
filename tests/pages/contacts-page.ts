@@ -1,5 +1,5 @@
 import { Page, expect, Locator } from "@playwright/test"
-import { Contact } from "../../../fixtures/contacts/contact"
+import { Contact } from '../../dto/contact'
 
 export class ContactsPage {
 
@@ -9,8 +9,8 @@ export class ContactsPage {
     readonly editContactButton: Locator
     readonly deleteContactButton: Locator
     readonly returnButton: Locator
-    readonly firstNameField: Locator
-    readonly lastNameField: Locator
+    readonly firstNameInput: Locator
+    readonly lastNameInput: Locator
     readonly newContact: Locator
     readonly errorMessage: Locator
 
@@ -21,9 +21,9 @@ export class ContactsPage {
         this.editContactButton = page.locator('#edit-contact')
         this.deleteContactButton = page.locator('#delete')
         this.returnButton = page.locator('#return')
-        this.firstNameField = page.locator('#firstName')
-        this.lastNameField = page.locator('#lastName')
-        this.lastNameField = page.locator('#lastName')
+        this.firstNameInput = page.locator('#firstName')
+        this.lastNameInput = page.locator('#lastName')
+        this.lastNameInput = page.locator('#lastName')
         this.errorMessage = page.locator('#error')
     }
 
@@ -49,11 +49,11 @@ export class ContactsPage {
     }
 
     async fillFirstName(firstName: string) {
-        await this.firstNameField.fill(firstName)
+        await this.firstNameInput.fill(firstName)
     }
 
     async fillLastName(lastName: string) {
-        await this.lastNameField.fill(lastName)
+        await this.lastNameInput.fill(lastName)
     }
 
     async editContact(firstName: string, lastName: string) {
