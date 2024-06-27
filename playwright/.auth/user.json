@@ -1,15 +1,2 @@
 {
-  "cookies": [
-    {
-      "name": "token",
-      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU1MmM3ZDFkMjVjYjAwMTM0Y2QxMzMiLCJpYXQiOjE3MTgzOTY1MTh9.WgeWjErpJqGaldAnAwHXjD_ZTqevEjTaIr0DUHyGJGc",
-      "domain": "thinking-tester-contact-list.herokuapp.com",
-      "path": "/",
-      "expires": 1718432518,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    }
-  ],
-  "origins": []
 }
