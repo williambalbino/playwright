@@ -1,20 +1,17 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/login-page';
+import { test, expect } from '../fixtures/base';
+
 import loginData from '../data/login.json';
 
-let loginPage: LoginPage
-
-test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page)
+test.beforeEach(async ({ loginPage }) => {
     await loginPage.go()
 })
 
-test('deve fazer login', async ({ page }) => {
+test('deve fazer login', async ({ page, loginPage }) => {
     await loginPage.login(loginData.success)
     await expect(page).toHaveURL('/contactList')
 })
 
-test('deve validar login com credenciais incorretas', async ({ page }) => {
+test('deve validar login com credenciais incorretas', async ({ loginPage }) => {
     await loginPage.login(loginData.invalidLogin)
     await expect(loginPage.getErrorMessage()).toHaveText('Incorrect username or password')
 })

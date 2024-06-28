@@ -1,15 +1,11 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures/base'
 import { postContact, clearContactsDB } from '../../utils/helper'
-import { ContactsPage } from '../pages/contacts-page'
 import contactData from '../data/contacts.json'
 import errorMessage from '../data/error-messages.json'
 import userDataEdit from '../../playwright/.auth/secondUser.json'
 import userData from '../../playwright/.auth/user.json'
 
-let contactsPage: ContactsPage
-
-test.beforeEach(async ({ page }) => {
-    contactsPage = new ContactsPage(page)
+test.beforeEach(async ({ contactsPage }) => {
     await contactsPage.go()
 })
 
@@ -17,12 +13,12 @@ test.afterAll(async ({ request }) => {
     await clearContactsDB(request, userData)
 })
 
-test('deve adicionar um novo contato', async () => {
+test('deve adicionar um novo contato', async ({ contactsPage }) => {
     await contactsPage.addContact(contactData.success)
     await expect(contactsPage.getNewContact(contactData.success)).toBeVisible()
 })
 
-test('deve validar nome e sobrenome obrigatorio', async () => {
+test('deve validar nome e sobrenome obrigatorio', async ({ contactsPage }) => {
     await contactsPage.addContact(contactData.fullNameRequired)
     await expect(contactsPage.getErrorMessage()).toHaveText(errorMessage.fullName)
 })
@@ -30,7 +26,7 @@ test('deve validar nome e sobrenome obrigatorio', async () => {
 test.describe(() => {
     test.use({ storageState: 'playwright/.auth/secondUser.json' });
 
-    test('deve editar um contato', async ({ page, request }) => {
+    test('deve editar um contato', async ({ contactsPage, request }) => {
         // await postContact(request, contactData.update, userDataEdit)
 
         await contactsPage.addContact(contactData.update)
@@ -43,7 +39,7 @@ test.describe(() => {
     })
 })
 
-test('deve remover um contato', async ({ page, request }) => {
+test('deve remover um contato', async ({ contactsPage, page }) => {
     // await postContact(request, contactData.deleteTest, userData)
 
     await contactsPage.addContact(contactData.deleteTest)
@@ -57,7 +53,7 @@ test('deve remover um contato', async ({ page, request }) => {
 })
 
 test.describe('mockando API requests', () => {
-    test('get contacts request', async ({ page }) => {
+    test('get contacts request', async ({ page, contactsPage }) => {
 
         await page.route('/contacts', async route => {
             const json = [{
