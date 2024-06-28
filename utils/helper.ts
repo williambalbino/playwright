@@ -1,6 +1,6 @@
 import { APIRequestContext, APIResponse, expect } from '@playwright/test'
-import { Contact } from '../fixtures/contacts/contact'
-import { LoginResponse } from '../fixtures/login/login-response'
+import { Contact } from '../dto/contact'
+import { LoginResponse } from '../dto/login-response'
 
 export async function getAllContactIds(request: APIRequestContext, userData: LoginResponse) {
     const response = await request.get('/contacts', {

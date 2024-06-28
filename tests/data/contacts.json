@@ -26,5 +26,9 @@
     "deleteTest":{
         "firstName": "Joao Delete",
         "lastName": "Snow Delete"
+    },
+    "mockTest":{
+        "firstName": "Joao Mock",
+        "lastName": "Snow Mock"
     }
 }

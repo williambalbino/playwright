@@ -55,3 +55,19 @@ test('deve remover um contato', async ({ page, request }) => {
 
     await expect(contactsPage.getNewContact(contactData.deleteTest)).not.toBeVisible()
 })
+
+test.describe('mockando API requests', () => {
+    test('get contacts request', async ({ page }) => {
+
+        await page.route('/contacts', async route => {
+            const json = [{
+                "firstName": contactData.mockTest.firstName,
+                "lastName": contactData.mockTest.lastName
+            }];
+            await route.fulfill({ json });
+        });
+
+        await contactsPage.go()
+        await expect(page.getByText('Joao')).toBeVisible()
+    });
+});
