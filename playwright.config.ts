@@ -23,7 +23,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.BASEURL,
+    baseURL: 'https://thinking-tester-contact-list.herokuapp.com',
     trace: 'on',
     screenshot: 'only-on-failure'
   },

@@ -18,7 +18,7 @@ export class LoginPage {
     }
 
     async go() {
-        await this.page.goto(process.env.BASEURL!)
+        await this.page.goto('/')
     }
 
     async fillEmail(email: string) {

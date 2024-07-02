@@ -2,8 +2,6 @@ import { test, expect } from '../fixtures/base';
 import loginData from '../data/login.json';
 import errorMessage from '../data/error-messages.json';
 
-require('dotenv').config();
-
 test.beforeEach(async ({ loginPage }) => {
     await loginPage.go()
 })
