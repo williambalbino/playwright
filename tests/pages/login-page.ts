@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test"
 import { Login } from '../../dto/login'
+require('dotenv').config();
 
 export class LoginPage {
     readonly page: Page
@@ -17,7 +18,7 @@ export class LoginPage {
     }
 
     async go() {
-        await this.page.goto('/')
+        await this.page.goto(process.env.BASEURL!)
     }
 
     async fillEmail(email: string) {
